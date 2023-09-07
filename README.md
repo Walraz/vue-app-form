@@ -30,7 +30,7 @@ const schema: AppFormSchemaField[] = [
     defaultValue: '',
     componentProps: {
       label: 'Namn',
-      // component props i.e from quasar
+      // component props i.e from quasar.
       square: true,
     },
   },
