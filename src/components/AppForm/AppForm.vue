@@ -98,13 +98,14 @@ const setDefaultValues = (
   schema: AppFormSchemaField[],
 ) => {
   for (const field of schema) {
-    set(
+    const value = get(
       model,
       field.scope,
       field?.transform
         ? field?.transform(field.defaultValue)
         : field.defaultValue,
     )
+    set(model, field.scope, value)
   }
   return model
 }

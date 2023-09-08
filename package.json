@@ -2,7 +2,7 @@
   "name": "vue-app-form",
   "author": "Rasmus Hallström",
   "repository": "https://github.com/Walraz/vue-app-form",
-  "version": "0.0.20",
+  "version": "0.0.21",
   "type": "module",
   "main": "./dist/AppForm.umd.cjs",
   "module": "./dist/AppForm.js",

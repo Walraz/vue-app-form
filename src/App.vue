@@ -68,7 +68,7 @@ export default defineComponent({
       },
     ]
 
-    const model = ref()
+    const model = ref<Partial<IUser>>({})
 
     const schema: AppFormSchemaField[] = [
       {
