@@ -1,11 +1,10 @@
 import { Component } from 'vue';
 import { ZodType } from 'zod';
-import { QBtnProps } from 'quasar';
 export interface AppFormSchemaField {
     scope: string;
     cols?: number;
     component: Component;
-    layoutSlot?: number;
+    column?: number;
     transform?: (v: any) => any;
     defaultValue: unknown;
     componentProps?: {
@@ -13,20 +12,16 @@ export interface AppFormSchemaField {
     };
 }
 export interface AppFormProps {
+    modelSchema: ZodType;
+    schema: AppFormSchemaField[];
+    readonly?: boolean;
+    disable?: boolean;
+    loading?: boolean;
     fieldWrapper?: Component | string;
-    actionButtonWrapper?: Component | string;
-    closeActionButtonText?: string;
-    confirmActionButtonText?: string;
     colGutter?: 'lg' | 'md' | 'sm' | 'xs';
     modelValue?: {
         [key: string]: unknown;
     } & {};
-    modelSchema: ZodType;
-    schema: AppFormSchemaField[];
-    actionButtonProps?: QBtnProps;
-    readonly?: boolean;
-    disable?: boolean;
-    loading?: boolean;
 }
 export declare const AppForm: {
     new (...args: any[]): {
@@ -34,14 +29,10 @@ export declare const AppForm: {
         $data: {};
         $props: {
             disable?: boolean | undefined;
-            fieldWrapper?: string | Component | undefined;
-            actionButtonWrapper?: string | Component | undefined;
-            closeActionButtonText?: string | undefined;
-            confirmActionButtonText?: string | undefined;
-            colGutter?: "lg" | "md" | "sm" | "xs" | undefined;
-            actionButtonProps?: QBtnProps | undefined;
             readonly?: boolean | undefined;
             loading?: boolean | undefined;
+            fieldWrapper?: string | Component | undefined;
+            colGutter?: "lg" | "md" | "sm" | "xs" | undefined;
             readonly modelValue?: {
                 [key: string]: unknown;
             } | undefined;
@@ -119,26 +110,6 @@ export declare const AppForm: {
                 type: import("vue").PropType<boolean>;
                 default: () => false;
             };
-            fieldWrapper: {
-                type: import("vue").PropType<string | Component>;
-                default: () => "div";
-            };
-            actionButtonWrapper: {
-                type: import("vue").PropType<string | Component>;
-                default: () => "div";
-            };
-            closeActionButtonText: {
-                type: import("vue").PropType<string>;
-                default: () => "Stäng";
-            };
-            confirmActionButtonText: {
-                type: import("vue").PropType<string>;
-                default: () => "Spara";
-            };
-            colGutter: {
-                type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
-                default: () => "sm";
-            };
             modelSchema: {
                 type: import("vue").PropType<ZodType<any, import("zod").ZodTypeDef, any>>;
                 required: true;
@@ -146,10 +117,6 @@ export declare const AppForm: {
             schema: {
                 type: import("vue").PropType<AppFormSchemaField[]>;
                 required: true;
-            };
-            actionButtonProps: {
-                type: import("vue").PropType<QBtnProps>;
-                default: () => {};
             };
             readonly: {
                 type: import("vue").PropType<boolean>;
@@ -159,6 +126,14 @@ export declare const AppForm: {
                 type: import("vue").PropType<boolean>;
                 default: () => false;
             };
+            fieldWrapper: {
+                type: import("vue").PropType<string | Component>;
+                default: () => "div";
+            };
+            colGutter: {
+                type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
+                default: () => "sm";
+            };
         }>> & {
             "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
             onReset?: ((...args: any[]) => any) | undefined;
@@ -166,14 +141,10 @@ export declare const AppForm: {
             onClose?: ((...args: any[]) => any) | undefined;
         }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "submit" | "reset" | "close")[], string, {
             disable: boolean;
-            fieldWrapper: Component | string;
-            actionButtonWrapper: Component | string;
-            closeActionButtonText: string;
-            confirmActionButtonText: string;
-            colGutter: 'lg' | 'md' | 'sm' | 'xs';
-            actionButtonProps: QBtnProps;
             readonly: boolean;
             loading: boolean;
+            fieldWrapper: Component | string;
+            colGutter: 'lg' | 'md' | 'sm' | 'xs';
         }, {}, string, {}> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
@@ -204,26 +175,6 @@ export declare const AppForm: {
             type: import("vue").PropType<boolean>;
             default: () => false;
         };
-        fieldWrapper: {
-            type: import("vue").PropType<string | Component>;
-            default: () => "div";
-        };
-        actionButtonWrapper: {
-            type: import("vue").PropType<string | Component>;
-            default: () => "div";
-        };
-        closeActionButtonText: {
-            type: import("vue").PropType<string>;
-            default: () => "Stäng";
-        };
-        confirmActionButtonText: {
-            type: import("vue").PropType<string>;
-            default: () => "Spara";
-        };
-        colGutter: {
-            type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
-            default: () => "sm";
-        };
         modelSchema: {
             type: import("vue").PropType<ZodType<any, import("zod").ZodTypeDef, any>>;
             required: true;
@@ -232,10 +183,6 @@ export declare const AppForm: {
             type: import("vue").PropType<AppFormSchemaField[]>;
             required: true;
         };
-        actionButtonProps: {
-            type: import("vue").PropType<QBtnProps>;
-            default: () => {};
-        };
         readonly: {
             type: import("vue").PropType<boolean>;
             default: () => false;
@@ -243,6 +190,14 @@ export declare const AppForm: {
         loading: {
             type: import("vue").PropType<boolean>;
             default: () => false;
+        };
+        fieldWrapper: {
+            type: import("vue").PropType<string | Component>;
+            default: () => "div";
+        };
+        colGutter: {
+            type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
+            default: () => "sm";
         };
     }>> & {
         "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
@@ -263,26 +218,6 @@ export declare const AppForm: {
         type: import("vue").PropType<boolean>;
         default: () => false;
     };
-    fieldWrapper: {
-        type: import("vue").PropType<string | Component>;
-        default: () => "div";
-    };
-    actionButtonWrapper: {
-        type: import("vue").PropType<string | Component>;
-        default: () => "div";
-    };
-    closeActionButtonText: {
-        type: import("vue").PropType<string>;
-        default: () => "Stäng";
-    };
-    confirmActionButtonText: {
-        type: import("vue").PropType<string>;
-        default: () => "Spara";
-    };
-    colGutter: {
-        type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
-        default: () => "sm";
-    };
     modelSchema: {
         type: import("vue").PropType<ZodType<any, import("zod").ZodTypeDef, any>>;
         required: true;
@@ -290,10 +225,6 @@ export declare const AppForm: {
     schema: {
         type: import("vue").PropType<AppFormSchemaField[]>;
         required: true;
-    };
-    actionButtonProps: {
-        type: import("vue").PropType<QBtnProps>;
-        default: () => {};
     };
     readonly: {
         type: import("vue").PropType<boolean>;
@@ -303,6 +234,14 @@ export declare const AppForm: {
         type: import("vue").PropType<boolean>;
         default: () => false;
     };
+    fieldWrapper: {
+        type: import("vue").PropType<string | Component>;
+        default: () => "div";
+    };
+    colGutter: {
+        type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
+        default: () => "sm";
+    };
 }>> & {
     "onUpdate:modelValue"?: ((...args: any[]) => any) | undefined;
     onReset?: ((...args: any[]) => any) | undefined;
@@ -310,14 +249,10 @@ export declare const AppForm: {
     onClose?: ((...args: any[]) => any) | undefined;
 }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("update:modelValue" | "submit" | "reset" | "close")[], "update:modelValue" | "submit" | "reset" | "close", {
     disable: boolean;
-    fieldWrapper: Component | string;
-    actionButtonWrapper: Component | string;
-    closeActionButtonText: string;
-    confirmActionButtonText: string;
-    colGutter: 'lg' | 'md' | 'sm' | 'xs';
-    actionButtonProps: QBtnProps;
     readonly: boolean;
     loading: boolean;
+    fieldWrapper: Component | string;
+    colGutter: 'lg' | 'md' | 'sm' | 'xs';
 }, {}, string, {}> & import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps & (new () => {
     $slots: Partial<Record<string, (_: {
         props: {
@@ -336,53 +271,8 @@ export declare const AppForm: {
             scope: string;
         };
     }) => any>> & {
-        actions?(_: {
-            props: {
-                bind: {
-                    size?: string | undefined;
-                    type?: string | undefined;
-                    to?: any;
-                    replace?: boolean | undefined;
-                    href?: string | undefined;
-                    target?: string | undefined;
-                    label?: string | number | undefined;
-                    icon?: string | undefined;
-                    iconRight?: string | undefined;
-                    outline?: boolean | undefined;
-                    flat?: boolean | undefined;
-                    unelevated?: boolean | undefined;
-                    rounded?: boolean | undefined;
-                    push?: boolean | undefined;
-                    square?: boolean | undefined;
-                    glossy?: boolean | undefined;
-                    fab?: boolean | undefined;
-                    fabMini?: boolean | undefined;
-                    padding?: string | undefined;
-                    color?: import("quasar").NamedColor | undefined;
-                    textColor?: import("quasar").NamedColor | undefined;
-                    noCaps?: boolean | undefined;
-                    noWrap?: boolean | undefined;
-                    dense?: boolean | undefined;
-                    ripple?: any;
-                    tabindex?: string | number | undefined;
-                    align?: "left" | "right" | "center" | "around" | "between" | "evenly" | undefined;
-                    stack?: boolean | undefined;
-                    stretch?: boolean | undefined;
-                    loading?: boolean | undefined;
-                    disable?: boolean | undefined;
-                    round?: boolean | undefined;
-                    percentage?: number | undefined;
-                    darkPercentage?: boolean | undefined;
-                    onClick?: ((evt: Event, go?: ((opts?: {
-                        to?: any;
-                        replace?: boolean | undefined;
-                        returnRouterError?: boolean | undefined;
-                    } | undefined) => Promise<any>) | undefined) => void) | undefined;
-                };
-            };
-        }): any;
-        "action-button-left"?(_: {}): any;
-        "action-button-right"?(_: {}): any;
+        top?(_: {}): any;
+        bottom?(_: {}): any;
     };
 });
 export declare const AppSelect: import("vue").DefineComponent<{
