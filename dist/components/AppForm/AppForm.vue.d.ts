@@ -25,10 +25,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: import("vue").PropType<string>;
         default: () => "Spara";
     };
-    layoutSlots: {
-        type: import("vue").PropType<number>;
-        default: () => 1;
-    };
     colGutter: {
         type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
         default: () => "sm";
@@ -79,10 +75,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
         type: import("vue").PropType<string>;
         default: () => "Spara";
     };
-    layoutSlots: {
-        type: import("vue").PropType<number>;
-        default: () => 1;
-    };
     colGutter: {
         type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
         default: () => "sm";
@@ -118,7 +110,6 @@ declare const _default: __VLS_WithTemplateSlots<import("vue").DefineComponent<{
     actionButtonWrapper: string | import("vue").Component;
     closeActionButtonText: string;
     confirmActionButtonText: string;
-    layoutSlots: number;
     colGutter: "lg" | "md" | "sm" | "xs";
     actionButtonProps: import("quasar").QBtnProps;
     readonly: boolean;

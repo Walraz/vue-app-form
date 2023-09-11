@@ -11,7 +11,7 @@ export interface AppFormSchemaField {
   layoutSlot?: number
   transform?: (v: any) => any
   defaultValue: unknown
-  componentProps: {
+  componentProps?: {
     [key: string]: unknown
   }
 }
@@ -21,7 +21,6 @@ export interface AppFormProps {
   actionButtonWrapper?: Component | string
   closeActionButtonText?: string
   confirmActionButtonText?: string
-  layoutSlots?: number
   colGutter?: 'lg' | 'md' | 'sm' | 'xs'
   modelValue?: { [key: string]: unknown } & {}
   modelSchema: ZodType

@@ -51,7 +51,6 @@ const schema: AppFormSchemaField[] = [
 | `actionButtonWrapper`     | Component or html string element | 'div'   |          |
 | `closeActionButtonText`   | Change text of close button      | 'Stäng' |          |
 | `confirmActionButtonText` | Change text of confirm button    | 'Spara' |          |
-| `layoutSlots`             | Number of column dividers        | 1       |          |
 | `colGutter`               | Gutter of columns                | 'sm'    |          |
 | `modelValue`              | Bind formData                    |         |          |
 | `actionButtonProps`       | Props to add to action buttons   |         |          |
@@ -72,15 +71,15 @@ const schema: AppFormSchemaField[] = [
 
 ### AppFormSchemaField interface
 
-| Prop             |                             | Default     | Required |
-| ---------------- | --------------------------- | ----------- | -------- |
-| `scope`          | Object path i.e 'obj.value' |             | Yes      |
-| `cols`           | Span number of cols         | 'cols-auto' |          |
-| `component`      | Field component             |             | Yes      |
-| `layoutSlot`     | Render in layoutSlot        | 1           |          |
-| `transform`      | Transform value function    |             |          |
-| `defaultValue`   | Default value of field      |             | Yes      |
-| `componentProps` | Props to add to component   |             | Yes      |
+| Prop             |                                                                    | Default     | Required |
+| ---------------- | ------------------------------------------------------------------ | ----------- | -------- |
+| `scope`          | Object path i.e 'obj.value'                                        |             | Yes      |
+| `cols`           | Span number of cols                                                | 'cols-auto' |          |
+| `component`      | Field component                                                    |             | Yes      |
+| `layoutSlot`     | Render in column                                                   | 1           |          |
+| `transform`      | Transform value function before setting to modelValue              |             |          |
+| `defaultValue`   | Default value of field if not specified in AppForm modelValue prop |             | Yes      |
+| `componentProps` | Props to add to component                                          |             | Yes      |
 
 ### AppSelect
 

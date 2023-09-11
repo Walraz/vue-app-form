@@ -8,7 +8,7 @@ export interface AppFormSchemaField {
     layoutSlot?: number;
     transform?: (v: any) => any;
     defaultValue: unknown;
-    componentProps: {
+    componentProps?: {
         [key: string]: unknown;
     };
 }
@@ -17,7 +17,6 @@ export interface AppFormProps {
     actionButtonWrapper?: Component | string;
     closeActionButtonText?: string;
     confirmActionButtonText?: string;
-    layoutSlots?: number;
     colGutter?: 'lg' | 'md' | 'sm' | 'xs';
     modelValue?: {
         [key: string]: unknown;
@@ -39,7 +38,6 @@ export declare const AppForm: {
             actionButtonWrapper?: string | Component | undefined;
             closeActionButtonText?: string | undefined;
             confirmActionButtonText?: string | undefined;
-            layoutSlots?: number | undefined;
             colGutter?: "lg" | "md" | "sm" | "xs" | undefined;
             actionButtonProps?: QBtnProps | undefined;
             readonly?: boolean | undefined;
@@ -137,10 +135,6 @@ export declare const AppForm: {
                 type: import("vue").PropType<string>;
                 default: () => "Spara";
             };
-            layoutSlots: {
-                type: import("vue").PropType<number>;
-                default: () => 1;
-            };
             colGutter: {
                 type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
                 default: () => "sm";
@@ -176,7 +170,6 @@ export declare const AppForm: {
             actionButtonWrapper: Component | string;
             closeActionButtonText: string;
             confirmActionButtonText: string;
-            layoutSlots: number;
             colGutter: 'lg' | 'md' | 'sm' | 'xs';
             actionButtonProps: QBtnProps;
             readonly: boolean;
@@ -226,10 +219,6 @@ export declare const AppForm: {
         confirmActionButtonText: {
             type: import("vue").PropType<string>;
             default: () => "Spara";
-        };
-        layoutSlots: {
-            type: import("vue").PropType<number>;
-            default: () => 1;
         };
         colGutter: {
             type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
@@ -290,10 +279,6 @@ export declare const AppForm: {
         type: import("vue").PropType<string>;
         default: () => "Spara";
     };
-    layoutSlots: {
-        type: import("vue").PropType<number>;
-        default: () => 1;
-    };
     colGutter: {
         type: import("vue").PropType<"lg" | "md" | "sm" | "xs">;
         default: () => "sm";
@@ -329,7 +314,6 @@ export declare const AppForm: {
     actionButtonWrapper: Component | string;
     closeActionButtonText: string;
     confirmActionButtonText: string;
-    layoutSlots: number;
     colGutter: 'lg' | 'md' | 'sm' | 'xs';
     actionButtonProps: QBtnProps;
     readonly: boolean;

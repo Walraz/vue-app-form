@@ -9,7 +9,6 @@
             :model-schema="User"
             :schema="schema"
             :action-button-props="buttonStyleProps"
-            :layout-slots="2"
             :action-button-wrapper="QCardActions"
             :field-wrapper="QCardSection"
             @submit="onSave"
@@ -34,8 +33,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { QInput, QSelect, QCardSection, QForm, QCardActions } from 'quasar'
+import { computed, defineComponent, ref } from 'vue'
+import { QInput, QCardSection, QForm, QCardActions } from 'quasar'
 import { format } from 'date-fns'
 import {
   IUser,
@@ -49,7 +48,7 @@ import {
 import { inputStyleProps } from './common/inputStyleProps'
 import { buttonStyleProps } from './common/buttonStyleProps'
 import { inputFormRule } from './common/inputFormRule'
-import { AppForm, AppFormSchemaField } from './components/AppForm'
+import { AppForm, AppFormSchemaField, AppSelect } from './components/AppForm'
 
 export default defineComponent({
   components: {
@@ -57,95 +56,101 @@ export default defineComponent({
   },
 
   setup() {
-    const options = [
-      {
-        label: 'Test 1',
-        value: 1,
-      },
-      {
-        label: 'Test 2',
-        value: 2,
-      },
-    ]
+    const options = ref<{ label: string; value: number }[]>([])
+
+    setTimeout(() => {
+      options.value = [
+        {
+          label: 'Test 1',
+          value: 1,
+        },
+        {
+          label: 'Test 2',
+          value: 2,
+        },
+      ]
+    }, 5000)
 
     const model = ref<Partial<IUser>>({})
 
-    const schema: AppFormSchemaField[] = [
-      {
-        scope: 'name',
-        cols: 6,
-        component: QInput,
-        defaultValue: '',
-        componentProps: {
-          ...inputStyleProps,
-          label: 'Namn',
-          rules: [inputFormRule(UserName)],
+    const schema = computed(() => {
+      return [
+        {
+          scope: 'name',
+          cols: 6,
+          component: QInput,
+          defaultValue: '',
+          componentProps: {
+            ...inputStyleProps,
+            label: 'Namn',
+            rules: [inputFormRule(UserName)],
+          },
         },
-      },
-      {
-        scope: 'vehicle_type.type',
-        component: QInput,
-        defaultValue: '',
-        cols: 6,
-        componentProps: {
-          ...inputStyleProps,
-          label: 'Efternamn',
+        {
+          scope: 'vehicle_type.type',
+          component: QInput,
+          defaultValue: '',
+          cols: 6,
+          componentProps: {
+            ...inputStyleProps,
+            label: 'Efternamn',
+          },
         },
-      },
-      {
-        scope: 'age',
-        cols: 12,
-        layoutSlot: 2,
-        defaultValue: 0,
-        component: QInput,
-        transform: Number,
-        componentProps: {
-          ...inputStyleProps,
-          type: 'number',
-          label: 'Ålder',
-          rules: [inputFormRule(UserAge)],
+        {
+          scope: 'age',
+          cols: 12,
+          layoutSlot: 2,
+          defaultValue: 0,
+          component: QInput,
+          transform: Number,
+          componentProps: {
+            ...inputStyleProps,
+            type: 'number',
+            label: 'Ålder',
+            rules: [inputFormRule(UserAge)],
+          },
         },
-      },
-      {
-        scope: 'date.from',
-        component: QInput,
-        cols: 6,
-        defaultValue: format(+new Date(), 'yyyy-MM-dd'),
-        componentProps: {
-          ...inputStyleProps,
-          type: 'date',
-          label: 'Från datum',
-          rules: [inputFormRule(UserDateFrom)],
+        {
+          scope: 'date.from',
+          component: QInput,
+          cols: 6,
+          defaultValue: format(+new Date(), 'yyyy-MM-dd'),
+          componentProps: {
+            ...inputStyleProps,
+            type: 'date',
+            label: 'Från datum',
+            rules: [inputFormRule(UserDateFrom)],
+          },
         },
-      },
-      {
-        scope: 'dateTo',
-        component: QInput,
-        cols: 6,
-        defaultValue: format(+new Date() - 1440 * 60000, 'yyyy-MM-dd'),
-        componentProps: {
-          ...inputStyleProps,
-          type: 'date',
-          label: 'Till datum',
-          rules: [inputFormRule(UserDateTo)],
+        {
+          scope: 'dateTo',
+          component: QInput,
+          cols: 6,
+          defaultValue: format(+new Date() - 1440 * 60000, 'yyyy-MM-dd'),
+          componentProps: {
+            ...inputStyleProps,
+            type: 'date',
+            label: 'Till datum',
+            rules: [inputFormRule(UserDateTo)],
+          },
         },
-      },
-      {
-        scope: 'testUuid',
-        component: QSelect,
-        layoutSlot: 2,
-        cols: 4,
-        defaultValue: null,
-        componentProps: {
-          ...inputStyleProps,
-          label: 'Test',
-          rules: [inputFormRule(UserTestUuid)],
-          options,
-          emitValue: true,
-          multiple: true,
+        {
+          scope: 'testUuid',
+          component: AppSelect,
+          layoutSlot: 2,
+          cols: 12,
+          defaultValue: [],
+          componentProps: {
+            ...inputStyleProps,
+            label: 'Test',
+            loading: !options.value.length,
+            rules: [inputFormRule(UserTestUuid)],
+            options: options.value,
+            multiple: true,
+          },
         },
-      },
-    ]
+      ]
+    })
 
     const onSave = (data: IUser) => {
       console.log(data)

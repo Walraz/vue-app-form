@@ -75,13 +75,12 @@ import { useForm } from './useForm'
 import set from 'lodash.set'
 import get from 'lodash.get'
 import { AppFormProps } from './'
-import { ref, toRaw, watch } from 'vue'
+import { computed, ref, toRaw, watch } from 'vue'
 import { QForm } from 'quasar'
 import { AppFormSchemaField } from './'
 
 const form = ref<QForm>()
 const props = withDefaults(defineProps<AppFormProps>(), {
-  layoutSlots: () => 1,
   actionButtonProps: () => ({}),
   colGutter: () => 'sm',
   fieldWrapper: () => 'div',
@@ -92,6 +91,8 @@ const props = withDefaults(defineProps<AppFormProps>(), {
   disable: () => false,
   loading: () => false,
 })
+
+const layoutSlots = Math.max(...props.schema.map((x) => x.layoutSlot || 1))
 
 const setDefaultValues = (
   model: { [key: string]: unknown } = {},
@@ -159,10 +160,10 @@ const onCancel = () => {
 
 const onFormValidationError = () => validateForm(props.modelSchema)
 
-const propsAndEvent = (field: AppFormSchemaField) => {
-  return {
+const propsAndEvent = computed(() => {
+  return (field: AppFormSchemaField) => ({
     bind: {
-      ...field.componentProps,
+      ...(field.componentProps || {}),
       readonly: props.readonly,
       disable: props.disable,
       modelValue: getterScope(field.scope),
@@ -172,6 +173,6 @@ const propsAndEvent = (field: AppFormSchemaField) => {
     on: {
       'update:modelValue': (v: any) => setterScope(v, field),
     },
-  }
-}
+  })
+})
 </script>
