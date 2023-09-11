@@ -2,13 +2,12 @@ import { Component } from 'vue'
 import _AppForm from './AppForm.vue'
 import _AppSelect from './AppSelect.vue'
 import { ZodType } from 'zod'
-import { QBtnProps } from 'quasar'
 
 export interface AppFormSchemaField {
   scope: string
   cols?: number
   component: Component
-  layoutSlot?: number
+  column?: number
   transform?: (v: any) => any
   defaultValue: unknown
   componentProps?: {
@@ -17,18 +16,14 @@ export interface AppFormSchemaField {
 }
 
 export interface AppFormProps {
-  fieldWrapper?: Component | string
-  actionButtonWrapper?: Component | string
-  closeActionButtonText?: string
-  confirmActionButtonText?: string
-  colGutter?: 'lg' | 'md' | 'sm' | 'xs'
-  modelValue?: { [key: string]: unknown } & {}
   modelSchema: ZodType
   schema: AppFormSchemaField[]
-  actionButtonProps?: QBtnProps
   readonly?: boolean
   disable?: boolean
   loading?: boolean
+  fieldWrapper?: Component | string
+  colGutter?: 'lg' | 'md' | 'sm' | 'xs'
+  modelValue?: { [key: string]: unknown } & {}
 }
 
 export const AppForm = _AppForm

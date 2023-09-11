@@ -6,16 +6,17 @@
     @reset="onReset"
     ref="form"
   >
+    <slot name="top" />
     <component :is="fieldWrapper">
       <div :class="`row q-col-gutter-md`">
-        <template v-for="layoutSlot of layoutSlots" :key="layoutSlot">
+        <template v-for="column of columns" :key="column">
           <div class="col">
             <div :class="`row q-col-gutter-${colGutter}`">
               <template
                 v-for="field of schema.filter((x) => {
-                  const slotPos = x.layoutSlot || 1
-                  if (slotPos > layoutSlots) return 1 === layoutSlot
-                  return slotPos === layoutSlot
+                  const colPosition = x.column || 1
+                  if (colPosition > columns) return 1 === column
+                  return colPosition === column
                 })"
                 :key="field.scope"
               >
@@ -39,34 +40,13 @@
               </template>
             </div>
           </div>
-          <div class="col-auto flex" v-if="layoutSlot !== layoutSlots">
+          <div class="col-auto flex" v-if="column !== columns">
             <q-separator vertical />
           </div>
         </template>
       </div>
     </component>
-    <slot name="actions" :props="{ bind: { ...actionButtonProps } }">
-      <q-separator />
-      <component :is="actionButtonWrapper">
-        <slot name="action-button-left" />
-        <q-space />
-        <slot name="action-button-right">
-          <q-btn
-            v-bind="actionButtonProps"
-            @click="onCancel"
-            :disable="loading"
-            >{{ closeActionButtonText }}</q-btn
-          >
-          <q-btn
-            v-bind="actionButtonProps"
-            type="submit"
-            color="primary"
-            :loading="loading"
-            >{{ confirmActionButtonText }}</q-btn
-          >
-        </slot>
-      </component>
-    </slot>
+    <slot name="bottom" />
   </q-form>
 </template>
 
@@ -81,18 +61,14 @@ import { AppFormSchemaField } from './'
 
 const form = ref<QForm>()
 const props = withDefaults(defineProps<AppFormProps>(), {
-  actionButtonProps: () => ({}),
   colGutter: () => 'sm',
   fieldWrapper: () => 'div',
-  actionButtonWrapper: () => 'div',
-  closeActionButtonText: () => 'Stäng',
-  confirmActionButtonText: () => 'Spara',
   readonly: () => false,
   disable: () => false,
   loading: () => false,
 })
 
-const layoutSlots = Math.max(...props.schema.map((x) => x.layoutSlot || 1))
+const columns = Math.max(...props.schema.map((x) => x.column || 1))
 
 const setDefaultValues = (
   model: { [key: string]: unknown } = {},
@@ -152,10 +128,6 @@ const onReset = () => {
   resetDefaultForm()
   form.value?.resetValidation()
   emit('reset')
-}
-
-const onCancel = () => {
-  emit('close')
 }
 
 const onFormValidationError = () => validateForm(props.modelSchema)

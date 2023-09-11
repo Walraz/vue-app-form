@@ -44,39 +44,36 @@ const schema: AppFormSchemaField[] = [
 
 ### AppForm
 
-| Prop                      |                                  | Default | Required |
-| ------------------------- | -------------------------------- | ------- | -------- |
-| `schema`                  | See AppFormSchemaField interface |         | Yes      |
-| `modelSchema`             | A ZodType Object                 |         | Yes      |
-| `actionButtonWrapper`     | Component or html string element | 'div'   |          |
-| `closeActionButtonText`   | Change text of close button      | 'Stäng' |          |
-| `confirmActionButtonText` | Change text of confirm button    | 'Spara' |          |
-| `colGutter`               | Gutter of columns                | 'sm'    |          |
-| `modelValue`              | Bind formData                    |         |          |
-| `actionButtonProps`       | Props to add to action buttons   |         |          |
-| `readonly`                | Make all fields readonly         | false   |          |
-| `disable`                 | Make all fields disabled         | false   |          |
-| `loading`                 | Bind loading prop buttons        | false   |          |
+| Prop           |                                  | Default | Required |
+| -------------- | -------------------------------- | ------- | -------- |
+| `schema`       | See AppFormSchemaField interface |         | Yes      |
+| `modelSchema`  | A ZodType Object                 |         | Yes      |
+| `colGutter`    | Gutter of columns                | 'sm'    |          |
+| `modelValue`   | Bind formData                    |         |          |
+| `readonly`     | Make all fields readonly         | false   |          |
+| `disable`      | Make all fields disabled         | false   |          |
+| `loading`      | Bind loading prop buttons        | false   |          |
+| `fieldWrapper` | Wrapper around all fields        | 'div'   |          |
 
 | Event    |                                     |
 | -------- | ----------------------------------- |
 | `submit` | Returns validated formData if valid |
 | `reset`  | Reset formData to defaultValues     |
-| `close`  | Emited when close button clicked    |
 
-| Slot      |                            |
-| --------- | -------------------------- |
-| `actions` | Overwrite action buttons   |
-| `[scope]` | Overwrite schema component |
+| Slot      |                               |
+| --------- | ----------------------------- |
+| `top`     | Top slot for extra content    |
+| `bottom`  | Bottom slot for extra content |
+| `[scope]` | Overwrite schema component    |
 
 ### AppFormSchemaField interface
 
 | Prop             |                                                                    | Default     | Required |
 | ---------------- | ------------------------------------------------------------------ | ----------- | -------- |
 | `scope`          | Object path i.e 'obj.value'                                        |             | Yes      |
-| `cols`           | Span number of cols                                                | 'cols-auto' |          |
+| `cols`           | Span number of cols (max 12)                                       | 'cols-auto' |          |
 | `component`      | Field component                                                    |             | Yes      |
-| `layoutSlot`     | Render in column                                                   | 1           |          |
+| `column`         | Column position in row                                             | 1           |          |
 | `transform`      | Transform value function before setting to modelValue              |             |          |
 | `defaultValue`   | Default value of field if not specified in AppForm modelValue prop |             | Yes      |
 | `componentProps` | Props to add to component                                          |             | Yes      |
